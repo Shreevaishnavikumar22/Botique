@@ -1,3 +1,139 @@
+# Flower Boutique — Full-Stack E‑commerce
+
+A polished, full-stack Flower Boutique e-commerce application built with the MERN stack (MongoDB, Express, React, Node). This repository contains a production-like storefront and an admin backend for managing products, orders, users, and simple payments. It is designed for local development and easy deployment to common cloud providers.
+
+**Highlights**
+- **Beautiful product pages** with image galleries and graceful fallbacks
+- **Cart & Checkout** flow with order history and basic payment integration (Razorpay placeholder)
+- **Admin dashboard** for managing products, orders and users
+- **Seed data & upload support** for populating sample flower products and local images
+
+## **Features**
+- **Authentication**: JWT-based auth, protected routes, admin privileges
+- **Product management**: categories, variants, images array support, search and filters
+- **Shopping cart**: add/update/remove items, persistent cart per user
+- **Orders**: create and list user orders, admin order status updates
+- **Payments**: server-side order creation and signature verification (Razorpay)
+- **Uploads**: local `backend/uploads` support (easy to swap to Cloudinary/S3)
+- **Developer tooling**: seed scripts, cleanup scripts, and helpful start scripts
+
+## **Tech Stack**
+- **Backend**: Node.js, Express, Mongoose (MongoDB)
+- **Frontend**: React (Create React App), Redux Toolkit, React Router
+- **Styling**: Tailwind CSS
+- **Other**: Multer (uploads), Razorpay SDK (payments), Helmet, CORS
+
+## **Quick Start (Windows PowerShell)**
+
+1) Clone the repo
+
+```powershell
+git clone <repository-url>
+cd botique
+```
+
+2) Install dependencies
+
+```powershell
+# Backend
+cd backend
+npm install
+
+# Frontend (new shell)
+cd ..\frontend
+npm install
+```
+
+3) Configure environment variables
+
+Copy the example and edit values in `backend/config.env` (or create `backend/config.env` from `config.env.example`):
+
+```text
+# Minimum required values
+PORT=5001
+MONGODB_URI=mongodb://127.0.0.1:27017/flower-ecommerce
+JWT_SECRET=change_this_to_a_secure_secret
+FRONTEND_URL=http://localhost:3000
+# Razorpay (use test keys to try payments)
+RAZORPAY_KEY_ID=your_key_id
+RAZORPAY_KEY_SECRET=your_key_secret
+```
+
+On the frontend you can set the API base (optional):
+
+```powershell
+cd frontend
+echo "REACT_APP_API_URL=http://localhost:5001/api" > .env
+```
+
+4) Seed sample flower products (optional but recommended)
+
+```powershell
+cd ..\backend
+node scripts/seedFlowerProducts.js
+```
+
+5) Run backend and frontend
+
+Open two PowerShell windows or tabs:
+
+```powershell
+# Window 1 - Start backend
+cd botique\backend
+node server.js
+
+# Window 2 - Start frontend
+cd botique\frontend
+npm start
+```
+
+Frontend: `http://localhost:3000` — Backend API: `http://localhost:5001/api`
+
+## **Environment Variables**
+- `MONGODB_URI` — MongoDB connection string
+- `PORT` — backend server port (default: `5001` in this project)
+- `JWT_SECRET` — secret string for signing JWTs
+- `RAZORPAY_KEY_ID` / `RAZORPAY_KEY_SECRET` — Razorpay test keys (required for payments)
+- `FRONTEND_URL` — allowed origin for CORS
+
+Keep secret values out of source control; use `.gitignore` (already present) to prevent accidental commits.
+
+## **Seeding & Uploads**
+- Seed script: `backend/scripts/seedFlowerProducts.js` — creates sample flower products that match the Product schema.
+- Local uploads directory: `backend/uploads/products/` — the server serves images from `/uploads`.
+- To add product images manually: place files in `backend/uploads/products/` and reference their filenames/URLs when creating products (or re-run the seed script).
+
+## **API Overview (selected)**
+- `GET /api/products` — list products (filters & pagination supported)
+- `GET /api/products/:id` — get product details
+- `POST /api/auth/login` — user login
+- `GET /api/cart` — get current user's cart
+- `POST /api/payment/orders` — create a payment order (protected)
+- `POST /api/payment/verify` — verify payment signature and complete order
+
+Refer to the `backend/routes/` folder for full endpoint listings.
+
+## **Development Tips**
+- If ports are in use, stop orphan Node processes or change `PORT` in `backend/config.env`.
+- Use the seed script to populate sample data matching the Product schema.
+- The project contains an `ErrorBoundary` component on the frontend to avoid white-screen crashes during development.
+
+## **Deployment**
+- Backend: deploy to Render/Heroku/DigitalOcean — set environment variables in the host's dashboard.
+- Frontend: build with `npm run build` and deploy to Vercel/Netlify or serve the `build/` directory from a static host.
+
+## **Contribution**
+- Fork, create a feature branch, implement changes, add tests, and open a pull request.
+
+## **License**
+- MIT — see `LICENSE` (if present) or add one to the repository.
+
+## **Contact & Support**
+- For questions or issues, open an issue in this repository or contact the maintainer.
+
+---
+
+Built with care for florists and shoppers 🌸
 # Battery E-commerce Application
 
 A full-fledged MERN stack e-commerce application for selling batteries, inspired by Amazon India. Built with modern technologies and best practices.
